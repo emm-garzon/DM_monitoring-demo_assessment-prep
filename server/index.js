@@ -39,6 +39,11 @@ app.get("/", (req, res) => {
   rollbar.info("html file served successfully.");
 });
 
+app.get("/style", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/styles.css"));
+  rollbar.info("css file served successfully");
+});
+
 const port = process.env.PORT || 4545;
 
 app.use(rollbar.errorHandler());
