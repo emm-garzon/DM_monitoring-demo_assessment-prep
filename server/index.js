@@ -26,14 +26,22 @@ app.post("/api/student", (req, res) => {
   let { name } = req.body;
   name = name.trim();
 
-  students.push(name);
+  const index = students.findIndex((studentName) => studentName === name);
 
-  rollbar.log("student name successfully added!", {
-    author: "Scott",
-    type: "manual entry",
-  });
-
-  res.status(200).send(students);
+  if (index === -1 && name !== "") {
+    students.push(name);
+    rollbar.log("Student added successfully!", {
+      author: "Scott",
+      type: "manual ",
+    });
+    res.status(200).send(students);
+  } else if (name === "") {
+    rollbar.error("No name provided");
+    res.status(400).send("Must Provide a Name");
+  } else {
+    rollbar.error("Student name already exists");
+    res.status(400).send("That student name has been previously recorded!");
+  }
 });
 
 app.get("/", (req, res) => {
