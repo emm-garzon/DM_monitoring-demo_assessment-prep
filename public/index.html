@@ -20,9 +20,10 @@
     <script>
       const addForm = document.querySelector("form");
       const nameInput = document.querySelector("input");
+      const container = document.querySelector("section");
 
-      const submitHandler = (event) => {
-        event.preventDefault();
+      function submitHandler(e) {
+        e.preventDefault();
         axios
           .post("/api/student", { name: nameInput.value })
           .then((res) => {
@@ -38,16 +39,16 @@
 
             const notif = document.createElement("aside");
             notif.innerHTML = `<p>${err.response.data}</p>
-            <button class="close">close</button>`;
+                    <button class='close'>close</button>`;
             document.body.appendChild(notif);
 
             document.querySelectorAll(".close").forEach((btn) => {
-              btn.addEventListener("click", (event) => {
-                event.target.parentNode.remove();
+              btn.addEventListener("click", (e) => {
+                e.target.parentNode.remove();
               });
             });
           });
-      };
+      }
 
       addForm.addEventListener("submit", submitHandler);
     </script>
