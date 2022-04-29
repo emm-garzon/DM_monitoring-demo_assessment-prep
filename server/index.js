@@ -3,10 +3,6 @@ const path = require("path");
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/index.html"));
-});
-
 // include and initialize the rollbar library with your access token
 const Rollbar = require("rollbar");
 let rollbar = new Rollbar({
@@ -15,11 +11,15 @@ let rollbar = new Rollbar({
   captureUnhandledRejections: true,
 });
 
+// app.get("/", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../public/index.html"));
+// });
+
 // record a generic message and send it to Rollbar
 rollbar.log("Hello world!");
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "..public/index.html"));
+  res.sendFile(path.join(__dirname, "../public/index.html"));
   rollbar.info("html file served successfully.");
 });
 
