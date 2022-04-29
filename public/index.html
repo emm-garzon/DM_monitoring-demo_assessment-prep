@@ -8,5 +8,25 @@
   </head>
   <body>
     <h1>Student List</h1>
+
+    <form>
+      <input type="text" placeholder="Type Name Here" />
+      <button>Add Student</button>
+    </form>
+
+    <script>
+      const addForm = document.querySelector("form");
+      const nameInput = document.querySelector("input");
+
+      const submitHandler = (event) => {
+        event.preventDefault();
+        axios
+          .post("/api/student", { name: nameInput.value })
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
+      };
+
+      addForm.addEventListener("submit", submitHandler);
+    </script>
   </body>
 </html>
