@@ -30,17 +30,17 @@ app.post("/api/student", (req, res) => {
 
   if (index === -1 && name !== "") {
     students.push(name);
-    rollbar.log("Student added successfully!", {
+    rollbar.log("Student added successfully", {
       author: "Scott",
-      type: "manual ",
+      type: "manual entry",
     });
     res.status(200).send(students);
   } else if (name === "") {
-    rollbar.error("No name provided");
-    res.status(400).send("Must Provide a Name");
+    rollbar.error("No name given");
+    res.status(400).send("must provide a name.");
   } else {
-    rollbar.error("Student name already exists");
-    res.status(400).send("That student name has been previously recorded!");
+    rollbar.error("student already exists");
+    res.status(400).send("that student already exists");
   }
 });
 
